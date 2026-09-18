@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/ui/reveal";
 import { pricingPlans } from "@/data/content";
 
 export function Pricing() {
@@ -22,12 +22,9 @@ export function Pricing() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {pricingPlans.map((plan, i) => (
-            <motion.div
+            <Reveal
               key={plan.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+              delay={i * 0.1}
               className={`relative flex flex-col rounded-3xl p-8 ${
                 plan.highlighted
                   ? "animated-gradient-bg text-white shadow-2xl lg:-translate-y-4"
@@ -93,7 +90,7 @@ export function Pricing() {
               >
                 Get Started
               </Button>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </Container>

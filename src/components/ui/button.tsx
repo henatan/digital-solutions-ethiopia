@@ -9,6 +9,7 @@ type ButtonProps = {
   variant?: "primary" | "secondary" | "ghost";
   className?: string;
   type?: "button" | "submit";
+  disabled?: boolean;
 };
 
 const base =
@@ -30,6 +31,7 @@ export function Button({
   variant = "primary",
   className,
   type = "button",
+  disabled = false,
 }: ButtonProps) {
   const classes = cn(base, variants[variant], className);
 
@@ -42,7 +44,7 @@ export function Button({
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
       {children}
     </button>
   );

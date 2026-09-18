@@ -42,6 +42,64 @@
   to { transform: translateX(-50%); }
 }
 
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll-reveal used by <Reveal> instead of framer-motion. Cheap CSS
+   transitions triggered by toggling a class via IntersectionObserver. */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(24px);
+}
+.reveal-up { transform: translateY(24px); }
+.reveal-down { transform: translateY(-24px); }
+.reveal-left { transform: translateX(-24px); }
+.reveal-right { transform: translateX(24px); }
+.reveal-none { transform: none; }
+.reveal-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* Hero content fades in immediately on load with plain CSS — no JS/
+   IntersectionObserver needed since it's always above the fold. */
+.hero-fade-in {
+  opacity: 0;
+  animation: fade-in-up 0.7s ease forwards;
+}
+
+/* Demo experience tab switch: plain CSS fade instead of framer-motion's
+   AnimatePresence, so switching tabs (and initial render) never depends
+   on JS finishing first. */
+.demo-tab-fade {
+  animation: fade-in-up 0.25s ease;
+}
+
+/* Simple CSS accordion for FAQ items, replacing framer-motion's animated
+   height. Uses the grid-template-rows 0fr -> 1fr trick for a smooth,
+   GPU-cheap height transition without measuring content in JS. */
+.accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+.accordion-panel.accordion-open {
+  grid-template-rows: 1fr;
+}
+.accordion-panel > div {
+  overflow: hidden;
+}
+
+/* Mobile nav menu panel: simply mounted/unmounted by React state (most
+   reliable across mobile browsers), with a lightweight CSS-only entrance
+   animation that doesn't depend on JS running first. */
+.mobile-menu-panel {
+  animation: fade-in-up 0.2s ease;
+}
+
 * {
   border-color: var(--border-color);
 }
@@ -57,11 +115,32 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* iOS Safari can add a ~300ms tap delay and a gray flash on custom
+   buttons/links, and in rare cases elements right after momentum
+   scrolling can feel unresponsive to the first tap. touch-action:
+   manipulation removes the double-tap-to-zoom delay (the main cause),
+   and a transparent tap highlight avoids the gray flash look. */
+a,
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .glass {
-  background: color-mix(in srgb, var(--surface) 60%, transparent);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
   border: 1px solid color-mix(in srgb, var(--border-color) 80%, transparent);
+}
+
+/* backdrop-filter blur is very expensive to composite/repaint on mobile
+   GPUs, especially with many stacked .glass panels on a page. Only apply
+   the frosted-glass blur on larger screens (and when the browser can
+   handle it); phones get a solid, still-attractive surface instead. */
+@media (min-width: 1024px) {
+  .glass {
+    background: color-mix(in srgb, var(--surface) 60%, transparent);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+  }
 }
 
 .gradient-text {
@@ -74,7 +153,27 @@ body {
 .animated-gradient-bg {
   background: linear-gradient(120deg, var(--primary), var(--accent), var(--primary));
   background-size: 200% 200%;
-  animation: gradient-shift 8s ease infinite;
+}
+
+/* Continuous infinite animations (gradient shift, floating cards) keep the
+   compositor busy the whole time the page is open, draining battery and
+   causing jank on low-end mobile CPUs. Only run them on larger screens and
+   when the user hasn't asked for reduced motion. */
+@media (min-width: 768px) {
+  .animated-gradient-bg {
+    animation: gradient-shift 8s ease infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-gradient-bg,
+  .animate-float,
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 ::-webkit-scrollbar {

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
@@ -23,7 +22,7 @@ export function Navbar() {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -78,35 +77,28 @@ export function Navbar() {
         </div>
       </Container>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="lg:hidden"
-          >
-            <Container>
-              <div className="glass mt-3 flex flex-col gap-1 rounded-2xl p-4">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="flex items-baseline justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-foreground/80 hover:bg-primary/5 hover:text-primary"
-                  >
-                    <span>{link.label}</span>
-                    {link.am && <span className="text-xs text-muted">{link.am}</span>}
-                  </a>
-                ))}
-                <Button href="#contact" className="mt-2 w-full" onClick={() => setOpen(false)}>
-                  Free Consultation
-                </Button>
-              </div>
-            </Container>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {open && (
+        <div className="lg:hidden">
+          <Container>
+            <div className="mobile-menu-panel glass mt-3 flex flex-col gap-1 rounded-2xl p-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="flex items-baseline justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-foreground/80 hover:bg-primary/5 hover:text-primary"
+                >
+                  <span>{link.label}</span>
+                  {link.am && <span className="text-xs text-muted">{link.am}</span>}
+                </a>
+              ))}
+              <Button href="#contact" className="mt-2 w-full" onClick={() => setOpen(false)}>
+                Free Consultation
+              </Button>
+            </div>
+          </Container>
+        </div>
+      )}
     </header>
   );
 }

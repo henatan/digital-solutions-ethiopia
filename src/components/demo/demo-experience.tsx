@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
   Star,
@@ -243,34 +242,26 @@ export function DemoExperience({ demo }: { demo: Demo }) {
         </div>
 
         <div className="min-h-[420px] bg-background/60 p-6 sm:p-10">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.3 }}
-            >
-              {active === "menu" && demo.industry.startsWith("Restaurant") && (
-                <MenuPage color={demo.color} onAdd={() => setCartCount((c) => c + 1)} cartCount={cartCount} />
-              )}
-              {active === "menu" && demo.industry.startsWith("Cafe") && (
-                <CafeMenuPage color={demo.color} onAdd={() => setCartCount((c) => c + 1)} cartCount={cartCount} />
-              )}
-              {active === "ordering" && <OrderStatusPage color={demo.color} />}
-              {active === "status" && <OrderStatusPage color={demo.color} />}
-              {active === "reservations" && <ReservationsPage color={demo.color} step={step} setStep={setStep} />}
-              {active === "dashboard" && <MiniDashboardPage color={demo.color} />}
-              {active === "rooms" && <RoomsPage color={demo.color} />}
-              {active === "gallery" && <GalleryPage color={demo.color} />}
-              {active === "appointments" && <AppointmentsPage color={demo.color} step={step} setStep={setStep} />}
-              {active === "doctors" && <DoctorsPage color={demo.color} />}
-              {active === "booking" && <BarberBookingPage color={demo.color} step={step} setStep={setStep} />}
-              {active === "services" && <ServicesPage color={demo.color} />}
-              {active === "shop" && <ShopPage color={demo.color} onAdd={() => setCartCount((c) => c + 1)} />}
-              {active === "cart" && <CartPage color={demo.color} cartCount={cartCount} />}
-            </motion.div>
-          </AnimatePresence>
+          <div key={active} className="demo-tab-fade">
+            {active === "menu" && demo.industry.startsWith("Restaurant") && (
+              <MenuPage color={demo.color} onAdd={() => setCartCount((c) => c + 1)} cartCount={cartCount} />
+            )}
+            {active === "menu" && demo.industry.startsWith("Cafe") && (
+              <CafeMenuPage color={demo.color} onAdd={() => setCartCount((c) => c + 1)} cartCount={cartCount} />
+            )}
+            {active === "ordering" && <OrderStatusPage color={demo.color} />}
+            {active === "status" && <OrderStatusPage color={demo.color} />}
+            {active === "reservations" && <ReservationsPage color={demo.color} step={step} setStep={setStep} />}
+            {active === "dashboard" && <MiniDashboardPage color={demo.color} />}
+            {active === "rooms" && <RoomsPage color={demo.color} />}
+            {active === "gallery" && <GalleryPage color={demo.color} />}
+            {active === "appointments" && <AppointmentsPage color={demo.color} step={step} setStep={setStep} />}
+            {active === "doctors" && <DoctorsPage color={demo.color} />}
+            {active === "booking" && <BarberBookingPage color={demo.color} step={step} setStep={setStep} />}
+            {active === "services" && <ServicesPage color={demo.color} />}
+            {active === "shop" && <ShopPage color={demo.color} onAdd={() => setCartCount((c) => c + 1)} />}
+            {active === "cart" && <CartPage color={demo.color} cartCount={cartCount} />}
+          </div>
         </div>
       </div>
     </div>

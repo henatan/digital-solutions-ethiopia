@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { Reveal } from "@/components/ui/reveal";
 import { testimonials } from "@/data/content";
 
 export function Testimonials() {
@@ -17,12 +17,9 @@ export function Testimonials() {
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2">
           {testimonials.map((t, i) => (
-            <motion.div
+            <Reveal
               key={t.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: (i % 2) * 0.1 }}
+              delay={(i % 2) * 0.1}
               className="glass rounded-3xl p-8"
             >
               <Quote className="text-primary/40" size={28} />
@@ -36,7 +33,7 @@ export function Testimonials() {
                   <p className="text-xs text-muted">{t.role}</p>
                 </div>
               </div>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </Container>

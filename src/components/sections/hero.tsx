@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle, TrendingUp, Star, Bell } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
@@ -37,66 +36,52 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden pb-24 pt-16 sm:pt-24">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-[-10%] h-[500px] w-[900px] -translate-x-1/2 animated-gradient-bg rounded-full opacity-[0.12] blur-[120px]" />
+        <div className="absolute left-1/2 top-[-10%] h-[300px] w-[500px] -translate-x-1/2 animated-gradient-bg rounded-full opacity-[0.12] blur-2xl sm:h-[500px] sm:w-[900px] sm:blur-[120px]" />
       </div>
 
       <Container className="relative">
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-border-color bg-primary/5 px-4 py-1.5 text-xs font-semibold text-primary"
+          <div
+            className="hero-fade-in mb-6 inline-flex items-center gap-2 rounded-full border border-border-color bg-primary/5 px-4 py-1.5 text-xs font-semibold text-primary"
           >
             <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
             Trusted across Ethiopia
-          </motion.div>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-6xl md:text-7xl"
+          <h1
+            className="hero-fade-in text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-6xl md:text-7xl"
+            style={{ animationDelay: "0.1s" }}
           >
             Transform Your Business Into a{" "}
             <span className="gradient-text">Digital Experience</span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="mt-3 text-xl font-semibold text-foreground/90 sm:text-2xl"
-            style={{ fontFamily: "var(--font-display)" }}
+          <p
+            className="hero-fade-in mt-3 text-xl font-semibold text-foreground/90 sm:text-2xl"
+            style={{ fontFamily: "var(--font-display)", animationDelay: "0.15s" }}
           >
             ንግድዎን ወደ ዘመናዊ ዲጂታል ተሞክሮ ይቀይሩ
-          </motion.p>
+          </p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-6 max-w-2xl text-base text-muted sm:text-lg"
+          <p
+            className="hero-fade-in mt-6 max-w-2xl text-base text-muted sm:text-lg"
+            style={{ animationDelay: "0.2s" }}
           >
             We help Ethiopian businesses modernize with QR menus, online
             ordering, booking systems, websites, Google integration, and
             dashboards.
-          </motion.p>
+          </p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
-            className="mt-3 max-w-2xl text-sm font-medium text-accent sm:text-base"
+          <p
+            className="hero-fade-in mt-3 max-w-2xl text-sm font-medium text-accent sm:text-base"
+            style={{ animationDelay: "0.25s" }}
           >
             We never ask for payment before your project is finished. · ስራችንን ከመጨረሳችን በፊት ክፍያ አንጠይቅም።
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
+          <div
+            className="hero-fade-in mt-10 flex flex-wrap items-center justify-center gap-4"
+            style={{ animationDelay: "0.3s" }}
           >
             <Button href="#demos">
               View Live Demos · ናሙናዎችን ይመልከቱ
@@ -106,16 +91,14 @@ export function Hero() {
               <PlayCircle size={16} />
               Get Free Consultation · ነጻ ምክክር ያግኙ
             </Button>
-          </motion.div>
+          </div>
         </div>
 
-        <div className="relative mx-auto mt-20 max-w-5xl">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="glass relative mx-auto flex flex-col overflow-hidden rounded-3xl shadow-2xl"
-          >
+        <div
+          className="hero-fade-in relative mx-auto mt-20 max-w-5xl"
+          style={{ animationDelay: "0.2s" }}
+        >
+          <div className="glass relative mx-auto flex flex-col overflow-hidden rounded-3xl shadow-2xl">
             <div className="flex items-center justify-between border-b border-border-color/70 px-6 py-4">
               <div className="flex items-center gap-2">
                 <span className="h-3 w-3 rounded-full bg-red-400" />
@@ -148,11 +131,8 @@ export function Hero() {
               </div>
 
               {floatingCards.map((card) => (
-                <motion.div
+                <div
                   key={card.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.5 + card.delay }}
                   className={`glass animate-float absolute z-10 hidden w-44 items-center gap-2.5 rounded-2xl p-3 shadow-xl md:flex ${card.className}`}
                   style={{ animationDelay: `${card.delay}s` }}
                 >
@@ -166,7 +146,7 @@ export function Hero() {
                     </p>
                     <p className="text-[10px] font-medium text-accent">{card.trend}</p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
 
@@ -188,7 +168,7 @@ export function Hero() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </Container>
     </section>

@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { Reveal } from "@/components/ui/reveal";
 import { demos } from "@/data/demos";
 
 export function IndustryDemos() {
@@ -20,13 +20,7 @@ export function IndustryDemos() {
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {demos.map((demo, i) => (
-            <motion.div
-              key={demo.slug}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: (i % 3) * 0.1 }}
-            >
+            <Reveal key={demo.slug} delay={(i % 3) * 0.1}>
               <Link
                 href={`/demos/${demo.slug}`}
                 className="glass group relative flex h-full flex-col overflow-hidden rounded-3xl shadow-[0_4px_24px_-8px_rgba(15,23,42,0.12)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_60px_-12px_rgba(37,99,235,0.3)]"
@@ -75,7 +69,7 @@ export function IndustryDemos() {
                   </span>
                 </div>
               </Link>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </Container>

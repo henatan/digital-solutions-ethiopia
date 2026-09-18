@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -30,27 +29,19 @@ export function Faq() {
                   <span className="text-sm font-semibold text-foreground sm:text-base">
                     {faq.question}
                   </span>
-                  <motion.span
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-primary"
+                  <span
+                    className={`text-primary transition-transform duration-300 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
                   >
                     <ChevronDown size={18} />
-                  </motion.span>
+                  </span>
                 </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
-                    >
-                      <p className="px-5 pb-5 text-sm text-muted">{faq.answer}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div className={`accordion-panel ${isOpen ? "accordion-open" : ""}`}>
+                  <div>
+                    <p className="px-5 pb-5 text-sm text-muted">{faq.answer}</p>
+                  </div>
+                </div>
               </div>
             );
           })}

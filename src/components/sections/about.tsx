@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ShieldCheck, Rocket, HeartHandshake } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GlassCard } from "@/components/ui/glass-card";
+import { Reveal } from "@/components/ui/reveal";
 
 const pillars = [
   {
@@ -65,11 +65,8 @@ export function About() {
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <Reveal
+          delay={0.2}
           className="mt-16 grid gap-8 rounded-3xl border border-border-color bg-surface/40 p-8 sm:grid-cols-3 sm:p-12"
         >
           {[
@@ -82,7 +79,7 @@ export function About() {
               <p className="mt-2 text-sm text-muted">{stat.label}</p>
             </div>
           ))}
-        </motion.div>
+        </Reveal>
       </Container>
     </section>
   );

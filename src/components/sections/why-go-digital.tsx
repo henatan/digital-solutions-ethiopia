@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { Reveal } from "@/components/ui/reveal";
 import { whyDigital } from "@/data/content";
 
 export function WhyGoDigital() {
@@ -17,27 +17,21 @@ export function WhyGoDigital() {
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {whyDigital.map((item, i) => (
-            <motion.div
+            <Reveal
               key={item.label}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+              delay={i * 0.1}
               className="rounded-3xl border border-border-color bg-surface/40 p-8 text-center"
             >
               <p className="gradient-text text-4xl font-extrabold sm:text-5xl">
                 {item.stat}
               </p>
               <p className="mt-3 text-sm text-muted">{item.label}</p>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <Reveal
+          delay={0.2}
           className="mt-12 grid gap-6 sm:grid-cols-3"
         >
           {[
@@ -64,7 +58,7 @@ export function WhyGoDigital() {
               <p className="mt-2 text-sm text-muted">{benefit.description}</p>
             </div>
           ))}
-        </motion.div>
+        </Reveal>
       </Container>
     </section>
   );
